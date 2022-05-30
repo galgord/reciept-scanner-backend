@@ -1,0 +1,13 @@
+steps:
+# Build the container image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/solar-virtue-305313/reciept-scanner-backend', '.']
+# Push the container image to Container Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/solar-virtue-305313/reciept-scanner-backend']
+# Deploy container image to Cloud Run
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args: ['run', 'deploy', 'reciept-scanner-backend', '--image', 'gcr.io/solar-virtue-305313/reciept-scanner-backend', '--region', 'us-central1']
+images:
+- gcr.io/solar-virtue-305313/reciept-scanner-bcen
